@@ -28,7 +28,7 @@ exports.main = async (event, context) => {
     }
     
     // 随机获取指定数量的题目
-    const result = await query.limit(100).get()
+    const result = await query.limit(5).get()
     
     if (result.data.length === 0) {
       return {

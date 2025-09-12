@@ -48,14 +48,14 @@ Page({
       
       // 然后尝试从云数据库加载（可选）
       try {
-        const result = await wx.cloud.callFunction({
-          name: 'get-questions',
-          data: {
-            category: 'all',
-            count: 5,
-            difficulty: 'mixed'
-          }
-        });
+        // const result = await wx.cloud.callFunction({
+        //   name: 'get-questions',
+        //   data: {
+        //     category: 'all',
+        //     count: 5,
+        //     difficulty: 'mixed'
+        //   }
+        // });
 
         if (result.result.success && result.result.data.length > 0) {
           console.log('从云数据库加载题目成功:', result.result.data);

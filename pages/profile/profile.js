@@ -13,17 +13,180 @@ Page({
       favoriteCount: 0
     },
     favorites: [],
-    quizRecords: []
+    quizRecords: [],
+    // 添加登录状态标识
+    isLogin: false
   },
 
   onLoad() {
     this.updateTime();
     this.startTimeInterval();
-    this.loadUserData();
+    
+    // 检查登录状态
+    this.checkLoginStatus();
   },
 
   onShow() {
-    this.loadUserData();
+    // 只有登录后才加载数据
+    if (this.data.isLogin) {
+      this.loadUserData();
+    }
+  },
+
+  // 检查登录状态
+  checkLoginStatus() {
+    const userName = wx.getStorageSync('userName');
+    const userClass = wx.getStorageSync('userClass');
+    
+    if (userName && userClass) {
+      // 已登录，设置用户信息
+      this.setData({
+        isLogin: true,
+        'userInfo.name': userName,
+        'userInfo.class': userClass
+      });
+      this.loadUserData();
+    } else {
+      // 未登录，显示登录弹窗
+      this.showLoginDialog();
+    }
+  },
+
+  // 显示登录弹窗
+  showLoginDialog() {
+    this.showNameInput();
+  },
+
+  // 显示姓名输入
+  showNameInput() {
+    const that = this;
+    wx.showModal({
+      title: '用户登录',
+      content: '请输入您的姓名',
+      editable: true,
+      placeholderText: '姓名',
+      success(res) {
+        if (res.confirm) {
+          if (res.content) {
+            // 保存姓名并继续输入班级
+            that.setData({
+              'tempUserInfo.name': res.content
+            });
+            that.showClassInput(res.content);
+          } else {
+            // 未输入内容，重新显示输入框
+            wx.showToast({
+              title: '请输入姓名',
+              icon: 'none'
+            });
+            that.showNameInput();
+          }
+        } else if (res.cancel) {
+          // 用户点击取消，可以再次询问是否需要登录
+          that.askIfLogin();
+        }
+      },
+      fail() {
+        that.askIfLogin();
+      }
+    });
+  },
+
+  // 显示班级输入
+  showClassInput(name) {
+    const that = this;
+    wx.showModal({
+      title: '用户登录',
+      content: '请输入您的班级',
+      editable: true,
+      placeholderText: '班级',
+      success(res) {
+        if (res.confirm) {
+          if (res.content) {
+            // 保存用户信息
+            wx.setStorageSync('userName', name);
+            wx.setStorageSync('userClass', res.content);
+            
+            // 更新页面数据
+            that.setData({
+              isLogin: true,
+              'userInfo.name': name,
+              'userInfo.class': res.content
+            });
+            
+            // 加载用户数据
+            that.loadUserData();
+            
+            wx.showToast({
+              title: '登录成功',
+              icon: 'success'
+            });
+          } else {
+            // 未输入内容，重新显示输入框
+            wx.showToast({
+              title: '请输入班级',
+              icon: 'none'
+            });
+            that.showClassInput(name);
+          }
+        } else if (res.cancel) {
+          // 用户点击取消，重新输入姓名
+          that.showNameInput();
+        }
+      }
+    });
+  },
+
+  // 询问是否需要登录
+  askIfLogin() {
+    const that = this;
+    wx.showModal({
+      title: '提示',
+      content: '需要登录才能使用个人中心功能，是否现在登录？',
+      success(res) {
+        if (res.confirm) {
+          that.showNameInput();
+        } else if (res.cancel) {
+          // 用户取消登录，可以继续询问
+          setTimeout(() => {
+            that.askIfLogin();
+          }, 1000);
+        }
+      }
+    });
+  },
+
+  // 退出登录
+  logout() {
+    const that = this;
+    wx.showModal({
+      title: '退出登录',
+      content: '确定要退出当前账号吗？',
+      success(res) {
+        if (res.confirm) {
+          // 清除本地存储的用户信息
+          wx.removeStorageSync('userName');
+          wx.removeStorageSync('userClass');
+          
+          // 重置页面数据
+          that.setData({
+            isLogin: false,
+            'userInfo.name': '科普爱好者',
+            'userInfo.class': '计科X班',
+            stats: {
+              quizCount: 0,
+              bestScore: 0,
+              favoriteCount: 0
+            },
+            favorites: [],
+            quizRecords: []
+          });
+          
+          // 重新显示登录弹窗
+          that.showLoginDialog();
+        }
+      }
+    });
   },
 
   // 更新时间
@@ -50,9 +213,12 @@ Page({
 
   // 加载用户数据
   loadUserData() {
-    this.loadStats();
-    this.loadFavorites();
-    this.loadQuizRecords();
+    // 只有登录后才加载数据
+    if (this.data.isLogin) {
+      this.loadStats();
+      this.loadFavorites();
+      this.loadQuizRecords();
+    }
   },
 
   // 加载统计数据
