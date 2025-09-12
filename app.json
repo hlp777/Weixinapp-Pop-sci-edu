@@ -1,12 +1,51 @@
 {
   "pages": [
+    "pages/home/home",
+    "pages/category/category",
+    "pages/list/list",
+    "pages/detail/detail",
+    "pages/quiz/quiz",
+    "pages/ranking/ranking",
+    "pages/profile/profile",
     "pages/index/index",
     "pages/logs/logs"
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "Weixin",
+    "navigationBarTitleText": "科普知识小天地",
     "navigationBarBackgroundColor": "#ffffff"
+  },
+  "tabBar": {
+    "color": "#6b7280",
+    "selectedColor": "#1677ff",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "images/home-select.png",
+        "selectedIconPath": "images/home-selected.png"
+      },
+      {
+        "pagePath": "pages/category/category",
+        "text": "分类",
+        "iconPath": "images/category-select.png",
+        "selectedIconPath": "images/category-selected.png"
+      },
+      {
+        "pagePath": "pages/quiz/quiz",
+        "text": "答题",
+        "iconPath": "images/quiz-select.png",
+        "selectedIconPath": "images/quiz-selected.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/profile-select.png",
+        "selectedIconPath": "images/profile-selected.png"
+      }
+    ]
   },
   "style": "v2",
   "componentFramework": "glass-easel",

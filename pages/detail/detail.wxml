@@ -1,0 +1,65 @@
+<!--pages/detail/detail.wxml-->
+<view class="page">
+  <!-- 顶部导航栏 -->
+  <view class="header">
+    <button class="back-btn" bindtap="goBack">返回</button>
+    <view class="header-title">{{article.title}}</view>
+    <view class="right">
+      <button class="share-btn" bindtap="shareArticle">分享</button>
+    </view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 封面图片 -->
+    <image class="hero" src="{{article.image}}" mode="aspectFill" />
+
+    <!-- 文章信息 -->
+    <view class="article">
+      <view class="article-title">{{article.title}}</view>
+      <view class="article-meta">
+        作者：{{article.author}}｜发布时间：{{article.date}}｜点击 {{article.clickCount}}
+      </view>
+      <view class="article-content">{{article.content}}</view>
+      
+      <!-- 操作按钮 -->
+      <view class="actions">
+        <button class="btn" bindtap="toggleLike" data-liked="{{article.liked}}">
+          👍 赞 {{article.likeCount}}
+        </button>
+        <button class="btn" bindtap="toggleFavorite" data-favorited="{{article.favorited}}">
+          ⭐ {{article.favorited ? '已收藏' : '收藏'}}
+        </button>
+      </view>
+    </view>
+
+    <!-- 相关视频 -->
+    <view class="article" wx:if="{{article.video}}">
+      <view class="section-title">相关视频</view>
+      <view class="video-container">
+        <video class="video" src="{{article.video}}" controls poster="{{article.videoPoster}}"></video>
+      </view>
+    </view>
+
+    <!-- 相关图片 -->
+    <view class="article" wx:if="{{article.gallery.length > 0}}">
+      <view class="section-title">相关图片</view>
+      <scroll-view class="gallery" scroll-x="true">
+        <view class="gallery-item" wx:for="{{article.gallery}}" wx:key="index">
+          <image class="gallery-image" src="{{item}}" mode="aspectFill" bindtap="previewImage" data-url="{{item}}" data-urls="{{article.gallery}}" />
+        </view>
+      </scroll-view>
+    </view>
+
+    <!-- 上一篇/下一篇 -->
+    <view class="navigation">
+      <button class="btn" bindtap="navigateToPrev" wx:if="{{prevArticle}}">上一篇</button>
+      <button class="btn" bindtap="navigateToNext" wx:if="{{nextArticle}}">下一篇</button>
+    </view>
+  </view>
+
+  <!-- 底部时间显示 -->
+  <view class="footer">
+    <view class="time">{{currentTime}}</view>
+  </view>
+</view>

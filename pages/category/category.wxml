@@ -1,0 +1,51 @@
+<!--pages/category/category.wxml-->
+<view class="page">
+  <!-- 顶部导航栏 -->
+  <view class="header">
+    <button class="back-btn" bindtap="goBack">返回</button>
+    <view class="header-title">科普分类</view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <view class="cards">
+      <view class="card" bindtap="navigateToList" data-category="space">
+        <view class="left">
+          <view class="cell-icon space-icon">🚀</view>
+          <view class="card-info">
+            <view class="card-title">航天探索</view>
+            <view class="badge">内容数量：{{categoryCounts.space}}</view>
+          </view>
+        </view>
+        <button class="btn primary">进入</button>
+      </view>
+
+      <view class="card" bindtap="navigateToList" data-category="agriculture">
+        <view class="left">
+          <view class="cell-icon agriculture-icon">🌾</view>
+          <view class="card-info">
+            <view class="card-title">现代农业</view>
+            <view class="badge">内容数量：{{categoryCounts.agriculture}}</view>
+          </view>
+        </view>
+        <button class="btn primary">进入</button>
+      </view>
+
+      <view class="card" bindtap="navigateToList" data-category="industry">
+        <view class="left">
+          <view class="cell-icon industry-icon">⚙️</view>
+          <view class="card-info">
+            <view class="card-title">工业技术</view>
+            <view class="badge">内容数量：{{categoryCounts.industry}}</view>
+          </view>
+        </view>
+        <button class="btn primary">进入</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部时间显示 -->
+  <view class="footer">
+    <view class="time">{{currentTime}}</view>
+  </view>
+</view>

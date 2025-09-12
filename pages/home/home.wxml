@@ -1,0 +1,62 @@
+<!--pages/home/home.wxml-->
+<view class="page">
+  <!-- 顶部区域 -->
+  <view class="header">
+    <view class="header-title">科普知识小天地</view>
+  </view>
+
+  <!-- 中央内容区 -->
+  <view class="content">
+    <!-- 欢迎区域 -->
+    <view class="home-top">
+      <view class="home-title">欢迎来到科普世界</view>
+      <view class="home-sub">用好奇点亮科学之光</view>
+      <view class="user-info">班级：{{userInfo.class}}｜姓名：{{userInfo.name}}｜作品：{{userInfo.project}}</view>
+    </view>
+
+    <!-- 轮播图和分类入口 -->
+    <view class="home-middle">
+      <!-- 轮播图 -->
+      <view class="carousel">
+        <swiper class="carousel-swiper" indicator-dots="{{true}}" autoplay="{{true}}" interval="3000" duration="500">
+          <swiper-item wx:for="{{carouselImages}}" wx:key="index">
+            <image class="carousel-image" src="{{item}}" mode="aspectFill" />
+          </swiper-item>
+        </swiper>
+      </view>
+
+      <!-- 分类入口网格 -->
+      <view class="grid">
+        <view class="cell" bindtap="navigateToCategory" data-category="space">
+          <view class="cell-icon space-icon">🚀</view>
+          <view>航天探索</view>
+        </view>
+        <view class="cell" bindtap="navigateToCategory" data-category="agriculture">
+          <view class="cell-icon agriculture-icon">🌾</view>
+          <view>现代农业</view>
+        </view>
+        <view class="cell" bindtap="navigateToCategory" data-category="industry">
+          <view class="cell-icon industry-icon">⚙️</view>
+          <view>工业技术</view>
+        </view>
+        <view class="cell" bindtap="navigateToQuiz">
+          <view class="cell-icon quiz-icon">❓</view>
+          <view>趣味答题</view>
+        </view>
+        <view class="cell" bindtap="navigateToRanking">
+          <view class="cell-icon ranking-icon">🏆</view>
+          <view>知识排行</view>
+        </view>
+        <view class="cell" bindtap="navigateToAbout">
+          <view class="cell-icon about-icon">ℹ️</view>
+          <view>关于我们</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部时间显示 -->
+  <view class="footer">
+    <view class="time">{{currentTime}}</view>
+  </view>
+</view>

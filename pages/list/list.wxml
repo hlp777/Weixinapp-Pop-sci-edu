@@ -1,0 +1,45 @@
+<!--pages/list/list.wxml-->
+<view class="page">
+  <!-- 顶部导航栏 -->
+  <view class="header">
+    <button class="back-btn" bindtap="goBack">返回</button>
+    <view class="header-title">{{categoryTitle}}</view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 搜索和排序 -->
+    <view class="search-bar">
+      <input class="search-input" placeholder="搜索{{categoryTitle}}知识" bindinput="onSearchInput" value="{{searchKeyword}}" />
+      <picker class="sort-picker" bindchange="onSortChange" value="{{sortIndex}}" range="{{sortOptions}}">
+        <view class="picker-text">{{sortOptions[sortIndex]}}</view>
+      </picker>
+    </view>
+
+    <!-- 内容列表 -->
+    <view class="list">
+      <view class="list-item" wx:for="{{filteredList}}" wx:key="id" bindtap="navigateToDetail" data-id="{{item.id}}">
+        <image class="thumb" src="{{item.image}}" mode="aspectFill" />
+        <view class="meta">
+          <view class="title">{{item.title}}</view>
+          <view class="desc">{{item.description}}</view>
+          <view class="stats">
+            <text>点击 {{item.clickCount}}</text>
+            <text>{{item.date}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{filteredList.length === 0}}">
+      <view class="empty-icon">📚</view>
+      <view class="empty-text">暂无相关内容</view>
+    </view>
+  </view>
+
+  <!-- 底部时间显示 -->
+  <view class="footer">
+    <view class="time">{{currentTime}}</view>
+  </view>
+</view>

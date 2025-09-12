@@ -1,0 +1,42 @@
+<!--pages/ranking/ranking.wxml-->
+<view class="page">
+  <!-- 顶部导航栏 -->
+  <view class="header">
+    <button class="back-btn" bindtap="goBack">返回</button>
+    <view class="header-title">知识热度排行榜</view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 排序选项 -->
+    <view class="sort-options">
+      <picker class="sort-picker" bindchange="onSortChange" value="{{sortIndex}}" range="{{sortOptions}}">
+        <view class="picker-text">{{sortOptions[sortIndex]}}</view>
+      </picker>
+    </view>
+
+    <!-- 排行榜列表 -->
+    <view class="rank-list">
+      <view class="rank-item" wx:for="{{rankedList}}" wx:key="id">
+        <view class="rank-medal {{item.medalClass}}">{{item.rank}}</view>
+        <view class="rank-title">{{item.title}}</view>
+        <view class="rank-bar">
+          <view class="rank-fill" style="width: {{item.percentage}}%"></view>
+        </view>
+        <view class="rank-count">点击 {{item.clickCount}}</view>
+        <view class="rank-badge">热度 {{item.heat}}</view>
+      </view>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{rankedList.length === 0}}">
+      <view class="empty-icon">🏆</view>
+      <view class="empty-text">暂无排行数据</view>
+    </view>
+  </view>
+
+  <!-- 底部时间显示 -->
+  <view class="footer">
+    <view class="time">{{currentTime}}</view>
+  </view>
+</view>

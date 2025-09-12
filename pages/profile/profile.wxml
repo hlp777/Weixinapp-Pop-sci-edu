@@ -1,0 +1,86 @@
+<!--pages/profile/profile.wxml-->
+<view class="page">
+  <!-- 顶部导航栏 -->
+  <view class="header">
+    <view class="header-title">个人中心</view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 用户信息区 -->
+    <view class="user-info">
+      <view class="avatar">{{userInfo.avatar}}</view>
+      <view class="user-details">
+        <view class="username">{{userInfo.name}}</view>
+        <view class="badge">班级：{{userInfo.class}}</view>
+      </view>
+    </view>
+
+    <!-- 统计信息 -->
+    <view class="stats">
+      <view class="stat-item">
+        <view class="stat-number">{{stats.quizCount}}</view>
+        <view class="stat-label">答题次数</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-number">{{stats.bestScore}}</view>
+        <view class="stat-label">最高分</view>
+      </view>
+      <view class="stat-item">
+        <view class="stat-number">{{stats.favoriteCount}}</view>
+        <view class="stat-label">收藏数</view>
+      </view>
+    </view>
+
+    <!-- 我的收藏 -->
+    <view class="section">
+      <view class="section-title">我的收藏</view>
+      <view class="favorite-list">
+        <view class="favorite-item" wx:for="{{favorites}}" wx:key="id" bindtap="navigateToDetail" data-id="{{item.id}}">
+          <image class="favorite-thumb" src="{{item.image}}" mode="aspectFill" />
+          <view class="favorite-meta">
+            <view class="favorite-title">{{item.title}}</view>
+            <view class="favorite-desc">{{item.description}}</view>
+            <view class="favorite-stats">
+              <text>点击 {{item.clickCount}}</text>
+              <text>收藏</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 答题记录 -->
+    <view class="section">
+      <view class="section-title">最近答题记录</view>
+      <view class="quiz-records">
+        <view class="record-item" wx:for="{{quizRecords}}" wx:key="id">
+          <view class="record-score">{{item.score}}分</view>
+          <view class="record-details">
+            <view class="record-stats">正确 {{item.correctCount}} 题｜错误 {{item.wrongCount}} 题</view>
+            <view class="record-date">{{item.date}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 功能菜单 -->
+    <view class="menu">
+      <view class="menu-item" bindtap="showAbout">
+        <view class="menu-icon">ℹ️</view>
+        <view class="menu-text">关于我们</view>
+        <view class="menu-arrow">></view>
+      </view>
+      <view class="menu-item" bindtap="clearData">
+        <view class="menu-icon">🗑️</view>
+        <view class="menu-text">清除数据</view>
+        <view class="menu-arrow">></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 底部时间显示 -->
+  <view class="footer">
+    <view class="time">{{currentTime}}</view>
+  </view>
+</view>

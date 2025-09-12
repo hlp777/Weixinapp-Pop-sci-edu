@@ -1,0 +1,73 @@
+<!--pages/quiz/quiz.wxml-->
+<view class="page">
+  <!-- 顶部导航栏 -->
+  <view class="header">
+    <view class="header-title">科普知识挑战</view>
+  </view>
+
+  <!-- 内容区域 -->
+  <view class="content">
+    <!-- 答题视图 -->
+    <view class="quiz-view" wx:if="{{!showResult}}">
+      <!-- 进度指示器 -->
+      <view class="progress-container">
+        <view class="progress-text">{{currentIndex + 1}}/{{questions.length}}</view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width: {{progress}}%"></view>
+        </view>
+      </view>
+
+      <!-- 题目区域 -->
+      <view class="question-container">
+        <view class="question-text">{{currentQuestion.question}}</view>
+        <view class="options">
+          <view class="option" 
+                wx:for="{{currentQuestion.options}}" 
+                wx:key="index"
+                bindtap="selectOption"
+                data-index="{{index}}"
+                style="border-color: {{selectedIndex === index ? (index === currentQuestion.answer ? '#22c55e' : '#ef4444') : '#e5e7eb'}}">
+            {{item}}
+          </view>
+        </view>
+      </view>
+
+      <!-- 控制按钮 -->
+      <view class="controls">
+        <button class="btn" bindtap="prevQuestion" disabled="{{currentIndex === 0}}">上一题</button>
+        <button class="btn" bindtap="nextQuestion" disabled="{{selectedIndex === -1}}">下一题</button>
+        <button class="btn primary" bindtap="submitQuiz" wx:if="{{currentIndex === questions.length - 1}}" disabled="{{selectedIndex === -1}}">提交答案</button>
+      </view>
+
+      <!-- 反馈信息 -->
+      <view class="feedback" wx:if="{{showFeedback}}">
+        {{feedbackText}}
+      </view>
+    </view>
+
+    <!-- 结果视图 -->
+    <view class="result-view" wx:if="{{showResult}}">
+      <view class="result-title">成绩</view>
+      <view class="score">{{score}}分</view>
+      <view class="stats">正确 {{correctCount}} 题｜错误 {{wrongCount}} 题</view>
+      
+      <!-- 答案解析 -->
+      <view class="analysis">
+        <view class="analysis-title">答案解析</view>
+        <view class="analysis-item" wx:for="{{questions}}" wx:key="index">
+          <view class="analysis-question">Q{{index + 1}}: {{item.question}}</view>
+          <view class="analysis-answer">你的选择：{{userAnswers[index] !== -1 ? item.options[userAnswers[index]] : '未选择'}}</view>
+          <view class="analysis-correct">正确答案：{{item.options[item.answer]}}</view>
+          <view class="analysis-explain">解析：{{item.explanation}}</view>
+        </view>
+      </view>
+
+      <button class="btn primary" bindtap="retryQuiz">再试一次</button>
+    </view>
+  </view>
+
+  <!-- 底部时间显示 -->
+  <view class="footer">
+    <view class="time">{{currentTime}}</view>
+  </view>
+</view>
