@@ -1,0 +1,9 @@
+{
+  "name": "save-quiz-record",
+  "version": "1.0.0",
+  "description": "保存答题记录",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "~2.6.3"
+  }
+}

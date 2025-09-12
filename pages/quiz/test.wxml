@@ -1,0 +1,28 @@
+<!--pages/quiz/test.wxml-->
+<view class="page">
+  <view class="header">
+    <view class="header-title">测试页面</view>
+  </view>
+  
+  <view class="content">
+    <view class="test-info">
+      <text>题目数量: {{questions.length}}</text>
+    </view>
+    
+    <view class="test-questions" wx:if="{{questions.length > 0}}">
+      <view class="question-item" wx:for="{{questions}}" wx:key="id">
+        <view class="question-title">Q{{index + 1}}: {{item.question}}</view>
+        <view class="question-options">
+          <view class="option" wx:for="{{item.options}}" wx:key="*this">
+            {{item1}}
+          </view>
+        </view>
+        <view class="question-answer">答案: {{item.options[item.answer]}}</view>
+      </view>
+    </view>
+    
+    <view class="test-actions">
+      <button class="btn primary" bindtap="loadTestQuestions">加载测试题目</button>
+    </view>
+  </view>
+</view>

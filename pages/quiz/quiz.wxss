@@ -27,6 +27,49 @@
   padding: 24rpx;
 }
 
+.loading-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+}
+
+.loading-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.loading-text {
+  color: #6b7280;
+  font-size: 28rpx;
+}
+
+.error-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80rpx 0;
+}
+
+.error-icon {
+  font-size: 80rpx;
+  margin-bottom: 20rpx;
+}
+
+.error-text {
+  color: #ef4444;
+  font-size: 28rpx;
+  margin-bottom: 24rpx;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
 .quiz-view {
   display: flex;
   flex-direction: column;
@@ -152,6 +195,12 @@
 .stats {
   font-size: 28rpx;
   color: #6b7280;
+}
+
+.duration {
+  font-size: 24rpx;
+  color: #9ca3af;
+  margin-top: 8rpx;
 }
 
 .analysis {

@@ -1,0 +1,78 @@
+<!--pages/admin/admin.wxml-->
+<view class="page">
+  <view class="header">
+    <view class="header-title">题目管理</view>
+  </view>
+  
+  <view class="content">
+    <!-- 添加题目表单 -->
+    <view class="form-section">
+      <view class="section-title">添加新题目</view>
+      
+      <view class="form-item">
+        <text class="label">题目内容：</text>
+        <textarea class="input" placeholder="请输入题目内容" bindinput="onQuestionInput" value="{{questionForm.question}}"></textarea>
+      </view>
+      
+      <view class="form-item">
+        <text class="label">选项A：</text>
+        <input class="input" placeholder="选项A" bindinput="onOptionInput" data-index="0" value="{{questionForm.options[0]}}"></input>
+      </view>
+      
+      <view class="form-item">
+        <text class="label">选项B：</text>
+        <input class="input" placeholder="选项B" bindinput="onOptionInput" data-index="1" value="{{questionForm.options[1]}}"></input>
+      </view>
+      
+      <view class="form-item">
+        <text class="label">选项C：</text>
+        <input class="input" placeholder="选项C" bindinput="onOptionInput" data-index="2" value="{{questionForm.options[2]}}"></input>
+      </view>
+      
+      <view class="form-item">
+        <text class="label">选项D：</text>
+        <input class="input" placeholder="选项D" bindinput="onOptionInput" data-index="3" value="{{questionForm.options[3]}}"></input>
+      </view>
+      
+      <view class="form-item">
+        <text class="label">正确答案：</text>
+        <picker bindchange="onAnswerChange" value="{{questionForm.answer}}" range="{{['A', 'B', 'C', 'D']}}">
+          <view class="picker-text">{{['A', 'B', 'C', 'D'][questionForm.answer]}}</view>
+        </picker>
+      </view>
+      
+      <view class="form-item">
+        <text class="label">答案解析：</text>
+        <textarea class="input" placeholder="请输入答案解析" bindinput="onExplanationInput" value="{{questionForm.explanation}}"></textarea>
+      </view>
+      
+      <view class="form-item">
+        <text class="label">分类：</text>
+        <picker bindchange="onCategoryChange" value="{{questionForm.categoryIndex}}" range="{{['航天探索', '现代农业', '工业技术', '基础科学']}}">
+          <view class="picker-text">{{['航天探索', '现代农业', '工业技术', '基础科学'][questionForm.categoryIndex]}}</view>
+        </picker>
+      </view>
+      
+      <view class="form-item">
+        <text class="label">难度：</text>
+        <picker bindchange="onDifficultyChange" value="{{questionForm.difficultyIndex}}" range="{{['简单', '中等', '困难']}}">
+          <view class="picker-text">{{['简单', '中等', '困难'][questionForm.difficultyIndex]}}</view>
+        </picker>
+      </view>
+      
+      <button class="btn primary" bindtap="addQuestion">添加题目</button>
+    </view>
+    
+    <!-- 快速添加按钮 -->
+    <view class="quick-actions">
+      <view class="section-title">快速操作</view>
+      <button class="btn" bindtap="initSimpleQuestions">初始化简单题目</button>
+      <button class="btn" bindtap="checkQuestions">检查题目数量</button>
+    </view>
+    
+    <!-- 状态显示 -->
+    <view class="status" wx:if="{{status}}">
+      {{status}}
+    </view>
+  </view>
+</view>

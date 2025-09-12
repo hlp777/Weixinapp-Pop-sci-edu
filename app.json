@@ -5,6 +5,8 @@
     "pages/list/list",
     "pages/detail/detail",
     "pages/quiz/quiz",
+    "pages/quiz/test",
+    "pages/admin/admin",
     "pages/ranking/ranking",
     "pages/profile/profile",
     "pages/index/index",
