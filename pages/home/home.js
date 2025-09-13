@@ -12,7 +12,25 @@ Page({
       'https://images.unsplash.com/photo-1483721310020-03333e577078?q=80&w=1200&auto=format&fit=crop',
       'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200&auto=format&fit=crop'
     ],
-    visitCount: 0
+    visitCount: 0,
+    // 新增科普知识列表
+    scienceFacts: [
+      {
+        id: 1,
+        title: "黑洞的秘密",
+        content: "黑洞的引力强大到连光都无法逃脱，是宇宙中最神秘的天体之一。"
+      },
+      {
+        id: 2,
+        title: "植物的智慧",
+        content: "植物虽然没有大脑，但它们能感知环境变化并做出相应的生理反应。"
+      },
+      {
+        id: 3,
+        title: "人体的奇迹",
+        content: "人体的血管如果连接起来，可以绕地球两圈半。"
+      }
+    ]
   },
 
   onLoad() {
@@ -63,24 +81,6 @@ Page({
     }
   },
 
-  // 切换音乐
-  toggleMusic() {
-    const musicEnabled = !this.data.musicEnabled;
-    this.setData({ musicEnabled });
-    
-    if (musicEnabled) {
-      wx.showToast({
-        title: '音乐已开启',
-        icon: 'success'
-      });
-    } else {
-      wx.showToast({
-        title: '音乐已关闭',
-        icon: 'none'
-      });
-    }
-  },
-
   // 导航到分类页面
   navigateToCategory(e) {
     wx.switchTab({
@@ -123,5 +123,27 @@ Page({
     visitCount++;
     wx.setStorageSync('visitCount', visitCount);
     this.setData({ visitCount });
+  },
+  
+  // 查看科普知识详情
+  viewScienceFact(e) {
+    const fact = e.currentTarget.dataset.fact;
+    wx.showModal({
+      title: fact.title,
+      content: fact.content,
+      showCancel: false,
+      confirmText: '知道了'
+    });
+  },
+  
+  // 查看公告详情
+  viewAnnouncement(e) {
+    const announcement = e.currentTarget.dataset.announcement;
+    wx.showModal({
+      title: announcement.title,
+      content: announcement.content + '\n\n发布日期: ' + announcement.date,
+      showCancel: false,
+      confirmText: '知道了'
+    });
   }
 });

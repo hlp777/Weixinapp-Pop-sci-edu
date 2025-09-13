@@ -20,7 +20,7 @@
         <view class="rank-medal {{item.medalClass}}">{{item.rank}}</view>
         <view class="rank-title">{{item.title}}</view>
         <view class="rank-bar">
-          <view class="rank-fill" style="width: {{item.percentage}}%"></view>
+          <view class="rank-fill" style="width: {{item.percentage}}"></view>
         </view>
         <view class="rank-count">点击 {{item.clickCount}}</view>
         <view class="rank-badge">热度 {{item.heat}}</view>

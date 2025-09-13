@@ -14,6 +14,7 @@
       <view class="user-info">班级：{{userInfo.class}}｜姓名：{{userInfo.name}}</view>
     </view>
 
+
     <!-- 轮播图和分类入口 -->
     <view class="home-middle">
       <!-- 轮播图 -->
@@ -51,6 +52,16 @@
           <view class="cell-icon about-icon">ℹ️</view>
           <view>关于我们</view>
         </view>
+      </view>
+    </view>
+
+    <!-- 科普知识区域 -->
+    <view class="section-title cell">🔬 科普知识</view>
+    <view class="facts-container">
+      <view class="fact-card" wx:for="{{scienceFacts}}" wx:key="id" bindtap="viewScienceFact" data-fact="{{item}}">
+        <view class="fact-title">{{item.title}}</view>
+        <view class="fact-content">{{item.content}}</view>
+        <view class="fact-arrow">></view>
       </view>
     </view>
   </view>

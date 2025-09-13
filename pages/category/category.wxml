@@ -13,7 +13,7 @@
           <view class="cell-icon space-icon">🚀</view>
           <view class="card-info">
             <view class="card-title">航天探索</view>
-            <view class="badge">内容数量：{{categoryCounts.space}}</view>
+            <!-- <view class="badge">内容数量：{{categoryCounts.space}}</view> -->
           </view>
         </view>
         <button class="btn primary">进入</button>
@@ -24,7 +24,7 @@
           <view class="cell-icon agriculture-icon">🌾</view>
           <view class="card-info">
             <view class="card-title">现代农业</view>
-            <view class="badge">内容数量：{{categoryCounts.agriculture}}</view>
+            <!-- <view class="badge">内容数量：{{categoryCounts.agriculture}}</view> -->
           </view>
         </view>
         <button class="btn primary">进入</button>
@@ -35,7 +35,7 @@
           <view class="cell-icon industry-icon">⚙️</view>
           <view class="card-info">
             <view class="card-title">工业技术</view>
-            <view class="badge">内容数量：{{categoryCounts.industry}}</view>
+            <!-- <view class="badge">内容数量：{{categoryCounts.industry}}</view> -->
           </view>
         </view>
         <button class="btn primary">进入</button>

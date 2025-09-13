@@ -242,7 +242,7 @@ Page({
     if (this.data.isLogin) {
       this.loadStats();
       this.loadFavorites();
-      this.loadQuizRecords();
+      //this.loadQuizRecords();
     }
   },
 
@@ -293,40 +293,40 @@ Page({
   },
 
   // 加载答题记录
-  loadQuizRecords() {
-    // 从云数据库获取答题记录
-    if (this.data.userId) {
-      wx.cloud.callFunction({
-        name: 'get-quiz-records',
-        data: {
-          userId: this.data.userId,
-          limit: 5
-        },
-        success: res => {
-          if (res.result.success) {
-            const recentRecords = res.result.data.map(record => ({
-              ...record,
-              date: this.formatDate(record.createTime)
-            }));
-            this.setData({ quizRecords: recentRecords });
-          } else {
-            console.error('获取答题记录失败:', res.result.message);
-            wx.showToast({
-              title: '获取记录失败',
-              icon: 'none'
-            });
-          }
-        },
-        fail: err => {
-          console.error('调用云函数失败:', err);
-          wx.showToast({
-            title: '网络错误',
-            icon: 'none'
-          });
-        }
-      });
-    }
-  },
+  // loadQuizRecords() {
+  //   // 从云数据库获取答题记录
+  //   if (this.data.userId) {
+  //     wx.cloud.callFunction({
+  //       name: 'get-quiz-records',
+  //       data: {
+  //         userId: this.data.userId,
+  //         limit: 5
+  //       },
+  //       success: res => {
+  //         if (res.result.success) {
+  //           const recentRecords = res.result.data.map(record => ({
+  //             ...record,
+  //             date: this.formatDate(record.createTime)
+  //           }));
+  //           this.setData({ quizRecords: recentRecords });
+  //         } else {
+  //           console.error('获取答题记录失败:', res.result.message);
+  //           wx.showToast({
+  //             title: '获取记录失败',
+  //             icon: 'none'
+  //           });
+  //         }
+  //       },
+  //       fail: err => {
+  //         console.error('调用云函数失败:', err);
+  //         wx.showToast({
+  //           title: '网络错误',
+  //           icon: 'none'
+  //         });
+  //       }
+  //     });
+  //   }
+  // },
 
   // 格式化日期
   formatDate(dateString) {
