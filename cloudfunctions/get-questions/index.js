@@ -21,14 +21,14 @@ exports.main = async (event, context) => {
     }
     
     // 按难度筛选
-    if (difficulty) {
+    if (difficulty && difficulty !== 'mixed') {
       query = query.where({
         difficulty: difficulty
       })
     }
     
-    // 随机获取指定数量的题目
-    const result = await query.limit(5).get()
+    // 获取题目
+    const result = await query.get()
     
     if (result.data.length === 0) {
       return {
