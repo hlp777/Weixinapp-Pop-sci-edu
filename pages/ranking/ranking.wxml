@@ -2,18 +2,17 @@
 <view class="page">
   <!-- 顶部导航栏 -->
   <view class="header">
-    <button class="back-btn" bindtap="goBack">返回</button>
     <view class="header-title">知识热度排行榜</view>
   </view>
 
   <!-- 内容区域 -->
   <view class="content">
-    <!-- 排序选项 -->
+    <!-- 排序选项 
     <view class="sort-options">
       <picker class="sort-picker" bindchange="onSortChange" value="{{sortIndex}}" range="{{sortOptions}}">
         <view class="picker-text">{{sortOptions[sortIndex]}}</view>
       </picker>
-    </view>
+    </view>-->
 
     <!-- 排行榜列表 -->
     <view class="rank-list">

@@ -29,7 +29,7 @@ exports.main = async (event, context) => {
     // 获取总数
     const countResult = await db.collection('quiz_records')
       .where({
-        userId: userId
+        //userId: userId
       })
       .count()
     

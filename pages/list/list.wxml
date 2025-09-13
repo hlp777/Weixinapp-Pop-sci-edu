@@ -2,19 +2,18 @@
 <view class="page">
   <!-- 顶部导航栏 -->
   <view class="header">
-    <button class="back-btn" bindtap="goBack">返回</button>
     <view class="header-title">{{categoryTitle}}</view>
   </view>
 
   <!-- 内容区域 -->
   <view class="content">
-    <!-- 搜索和排序 -->
+    <!-- 搜索和排序 
     <view class="search-bar">
       <input class="search-input" placeholder="搜索{{categoryTitle}}知识" bindinput="onSearchInput" value="{{searchKeyword}}" />
       <picker class="sort-picker" bindchange="onSortChange" value="{{sortIndex}}" range="{{sortOptions}}">
         <view class="picker-text">{{sortOptions[sortIndex]}}</view>
       </picker>
-    </view>
+    </view>-->
 
     <!-- 内容列表 -->
     <view class="list">

@@ -68,9 +68,8 @@ Page({
 
   // 导航到分类页面
   navigateToCategory(e) {
-    const category = e.currentTarget.dataset.category;
-    wx.navigateTo({
-      url: `/pages/category/category?category=${category}`
+    wx.switchTab({
+      url: '/pages/category/category'
     });
   },
 

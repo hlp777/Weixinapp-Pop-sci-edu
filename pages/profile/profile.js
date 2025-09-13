@@ -15,7 +15,9 @@ Page({
     favorites: [],
     quizRecords: [],
     // 添加登录状态标识
-    isLogin: false
+    isLogin: false,
+    // 添加用户ID
+    userId: ''
   },
 
   onLoad() {
@@ -45,12 +47,34 @@ Page({
         'userInfo.name': userName,
         'userInfo.class': userClass
       });
-      this.loadUserData();
+      
+      // 获取用户ID
+      //this.getUserId();
     } else {
       // 未登录，显示登录弹窗
       this.showLoginDialog();
     }
   },
+
+  // 获取用户ID
+  // getUserId() {
+  //   wx.cloud.callFunction({
+  //     name: 'login',
+  //     success: res => {
+  //       this.setData({
+  //         userId: res.result.openid
+  //       });
+  //       this.loadUserData();
+  //     },
+  //     fail: err => {
+  //       console.error('获取用户ID失败', err);
+  //       wx.showToast({
+  //         title: '获取用户信息失败',
+  //         icon: 'none'
+  //       });
+  //     }
+  //   });
+  // },
 
   // 显示登录弹窗
   showLoginDialog() {
@@ -114,8 +138,8 @@ Page({
               'userInfo.class': res.content
             });
             
-            // 加载用户数据
-            that.loadUserData();
+            // 获取用户ID
+            //that.getUserId();
             
             wx.showToast({
               title: '登录成功',
@@ -171,6 +195,7 @@ Page({
           // 重置页面数据
           that.setData({
             isLogin: false,
+            userId: '',
             'userInfo.name': '科普爱好者',
             'userInfo.class': '计科X班',
             stats: {
@@ -214,7 +239,7 @@ Page({
   // 加载用户数据
   loadUserData() {
     // 只有登录后才加载数据
-    if (this.data.isLogin) {
+    if (this.data.isLogin && this.data.userId) {
       this.loadStats();
       this.loadFavorites();
       this.loadQuizRecords();
@@ -223,22 +248,50 @@ Page({
 
   // 加载统计数据
   loadStats() {
-    const quizRecords = wx.getStorageSync('quizRecords') || [];
-    const favorites = wx.getStorageSync('favorites') || [];
-    
-    let quizCount = quizRecords.length;
-    let bestScore = 0;
-    
-    if (quizRecords.length > 0) {
-      bestScore = Math.max(...quizRecords.map(record => record.score));
+    // 从云数据库获取统计数据
+    if (this.data.userId) {
+      wx.cloud.callFunction({
+        name: 'get-quiz-records',
+        data: {
+          userId: this.data.userId
+        },
+        success: res => {
+          if (res.result.success) {
+            const quizRecords = res.result.data;
+            let quizCount = quizRecords.length;
+            let bestScore = 0;
+            
+            // 计算最高分
+            if (quizRecords.length > 0) {
+              bestScore = Math.max(...quizRecords.map(record => record.score));
+            }
+            
+            this.setData({
+              'stats.quizCount': quizCount,
+              'stats.bestScore': bestScore
+            });
+          } else {
+            console.error('获取答题记录失败:', res.result.message);
+            wx.showToast({
+              title: '获取数据失败',
+              icon: 'none'
+            });
+          }
+        },
+        fail: err => {
+          console.error('调用云函数失败:', err);
+          wx.showToast({
+            title: '网络错误',
+            icon: 'none'
+          });
+        }
+      });
     }
     
+    // 收藏数仍然使用本地存储
+    const favorites = wx.getStorageSync('favorites') || [];
     this.setData({
-      stats: {
-        quizCount: quizCount,
-        bestScore: bestScore,
-        favoriteCount: favorites.length
-      }
+      'stats.favoriteCount': favorites.length
     });
   },
 
@@ -250,13 +303,38 @@ Page({
 
   // 加载答题记录
   loadQuizRecords() {
-    const records = wx.getStorageSync('quizRecords') || [];
-    // 只显示最近5条记录
-    const recentRecords = records.slice(0, 5).map(record => ({
-      ...record,
-      date: this.formatDate(record.date)
-    }));
-    this.setData({ quizRecords: recentRecords });
+    // 从云数据库获取答题记录
+    if (this.data.userId) {
+      wx.cloud.callFunction({
+        name: 'get-quiz-records',
+        data: {
+          userId: this.data.userId,
+          limit: 5
+        },
+        success: res => {
+          if (res.result.success) {
+            const recentRecords = res.result.data.map(record => ({
+              ...record,
+              date: this.formatDate(record.createTime)
+            }));
+            this.setData({ quizRecords: recentRecords });
+          } else {
+            console.error('获取答题记录失败:', res.result.message);
+            wx.showToast({
+              title: '获取记录失败',
+              icon: 'none'
+            });
+          }
+        },
+        fail: err => {
+          console.error('调用云函数失败:', err);
+          wx.showToast({
+            title: '网络错误',
+            icon: 'none'
+          });
+        }
+      });
+    }
   },
 
   // 格式化日期
@@ -281,7 +359,7 @@ Page({
   showAbout() {
     wx.showModal({
       title: '关于我们',
-      content: '科普知识小天地\n版本：1.0.0\n开发者：计科X班\n\n用科技点亮知识之光',
+      content: '科普知识小天地\n版本：1.0.0\n开发者：hlp\n\n用科技点亮知识之光',
       showCancel: false
     });
   },

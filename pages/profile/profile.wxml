@@ -32,7 +32,7 @@
       </view>
     </view>
 
-    <!-- 我的收藏 -->
+    <!-- 我的收藏 
     <view class="section">
       <view class="section-title">我的收藏</view>
       <view class="favorite-list">
@@ -48,9 +48,9 @@
           </view>
         </view>
       </view>
-    </view>
+    </view>-->
 
-    <!-- 答题记录 -->
+    <!-- 答题记录 
     <view class="section">
       <view class="section-title">最近答题记录</view>
       <view class="quiz-records">
@@ -62,7 +62,7 @@
           </view>
         </view>
       </view>
-    </view>
+    </view>-->
 
     <!-- 功能菜单 -->
     <view class="menu">
@@ -71,9 +71,8 @@
         <view class="menu-text">关于我们</view>
         <view class="menu-arrow">></view>
       </view>
-      <view class="menu-item" bindtap="clearData">
-        <view class="menu-icon">🗑️</view>
-        <view class="menu-text">清除数据</view>
+      <view class="menu-item" bindtap="logout">
+        <view class="menu-text">退出</view>
         <view class="menu-arrow">></view>
       </view>
     </view>
