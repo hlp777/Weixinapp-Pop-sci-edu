@@ -11,7 +11,7 @@
     <view class="home-top">
       <view class="home-title">欢迎来到科普世界</view>
       <view class="home-sub">用好奇点亮科学之光</view>
-      <view class="user-info">班级：{{userInfo.class}}｜姓名：{{userInfo.name}}｜作品：{{userInfo.project}}</view>
+      <view class="user-info">班级：{{userInfo.class}}｜姓名：{{userInfo.name}}</view>
     </view>
 
     <!-- 轮播图和分类入口 -->

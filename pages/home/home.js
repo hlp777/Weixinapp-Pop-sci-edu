@@ -3,8 +3,7 @@ Page({
   data: {
     userInfo: {
       class: '计科X班',
-      name: '张三',
-      project: '科普天地'
+      name: '张三'
     },
     musicEnabled: false,
     currentTime: '',
@@ -20,6 +19,7 @@ Page({
     this.updateTime();
     this.loadVisitCount();
     this.startTimeInterval();
+    this.checkLoginStatus();
   },
 
   onShow() {
@@ -46,6 +46,21 @@ Page({
     setInterval(() => {
       this.updateTime();
     }, 1000);
+  },
+
+  // 检查登录状态
+  checkLoginStatus() {
+    const userName = wx.getStorageSync('userName');
+    const userClass = wx.getStorageSync('userClass');
+    
+    if (userName && userClass) {
+      // 已登录，设置用户信息
+      this.setData({
+        isLogin: true,
+        'userInfo.name': userName,
+        'userInfo.class': userClass
+      });
+    }
   },
 
   // 切换音乐
