@@ -239,7 +239,7 @@ Page({
   // 加载用户数据
   loadUserData() {
     // 只有登录后才加载数据
-    if (this.data.isLogin && this.data.userId) {
+    if (this.data.isLogin) {
       this.loadStats();
       this.loadFavorites();
       this.loadQuizRecords();
@@ -249,44 +249,35 @@ Page({
   // 加载统计数据
   loadStats() {
     // 从云数据库获取统计数据
-    if (this.data.userId) {
-      wx.cloud.callFunction({
-        name: 'get-quiz-records',
-        data: {
-          userId: this.data.userId
-        },
-        success: res => {
-          if (res.result.success) {
-            const quizRecords = res.result.data;
-            let quizCount = quizRecords.length;
-            let bestScore = 0;
-            
-            // 计算最高分
-            if (quizRecords.length > 0) {
-              bestScore = Math.max(...quizRecords.map(record => record.score));
-            }
-            
-            this.setData({
-              'stats.quizCount': quizCount,
-              'stats.bestScore': bestScore
-            });
-          } else {
-            console.error('获取答题记录失败:', res.result.message);
-            wx.showToast({
-              title: '获取数据失败',
-              icon: 'none'
-            });
-          }
-        },
-        fail: err => {
-          console.error('调用云函数失败:', err);
+    wx.cloud.callFunction({
+      name: 'get-quiz-records',
+      data: {
+        // 不传递userId，获取所有记录
+      },
+      success: res => {
+        if (res.result.success) {
+          // 获取所有记录的总数
+          const quizCount = res.result.total;
+          
+          this.setData({
+            'stats.quizCount': quizCount
+          });
+        } else {
+          console.error('获取答题记录失败:', res.result.message);
           wx.showToast({
-            title: '网络错误',
+            title: '获取数据失败',
             icon: 'none'
           });
         }
-      });
-    }
+      },
+      fail: err => {
+        console.error('调用云函数失败:', err);
+        wx.showToast({
+          title: '网络错误',
+          icon: 'none'
+        });
+      }
+    });
     
     // 收藏数仍然使用本地存储
     const favorites = wx.getStorageSync('favorites') || [];

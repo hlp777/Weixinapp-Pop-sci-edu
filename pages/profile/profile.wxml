@@ -22,14 +22,14 @@
         <view class="stat-number">{{stats.quizCount}}</view>
         <view class="stat-label">答题次数</view>
       </view>
-      <view class="stat-item">
+      <!-- <view class="stat-item">
         <view class="stat-number">{{stats.bestScore}}</view>
         <view class="stat-label">最高分</view>
-      </view>
-      <view class="stat-item">
+      </view> -->
+      <!-- <view class="stat-item">
         <view class="stat-number">{{stats.favoriteCount}}</view>
         <view class="stat-label">收藏数</view>
-      </view>
+      </view> -->
     </view>
 
     <!-- 我的收藏 

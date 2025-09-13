@@ -1,4 +1,6 @@
 // 云函数：获取用户答题记录
+// 业务场景：统计所有用户答题次数总和
+// 数据使用目的：在profile页面展示总答题次数
 const cloud = require('wx-server-sdk')
 
 cloud.init({
@@ -8,19 +10,13 @@ cloud.init({
 const db = cloud.database()
 
 exports.main = async (event, context) => {
-  const { userId, page = 1, limit = 10 } = event
-  
-  if (!userId) {
-    return { success: false, message: '缺少用户ID' }
-  }
+  // 注意：此接口不依赖用户ID，用于统计所有用户的答题记录总数
+  const { page = 1, limit = 10 } = event
   
   try {
     const skip = (page - 1) * limit
     
     const result = await db.collection('quiz_records')
-      .where({
-        userId: userId
-      })
       .orderBy('createTime', 'desc')
       .skip(skip)
       .limit(limit)
@@ -28,9 +24,6 @@ exports.main = async (event, context) => {
     
     // 获取总数
     const countResult = await db.collection('quiz_records')
-      .where({
-        //userId: userId
-      })
       .count()
     
     return {

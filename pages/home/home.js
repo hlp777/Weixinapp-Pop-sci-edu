@@ -106,7 +106,7 @@ Page({
   navigateToAbout() {
     wx.showModal({
       title: '关于我们',
-      content: '科普知识小天地\n版本：1.0.0\n开发者：计科X班',
+      content: '科普知识小天地\n版本：1.0.0\n开发者：hlp',
       showCancel: false
     });
   },
