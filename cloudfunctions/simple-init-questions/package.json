@@ -1,9 +1,0 @@
-{
-  "name": "simple-init-questions",
-  "version": "1.0.0",
-  "description": "简单初始化题目数据",
-  "main": "index.js",
-  "dependencies": {
-    "wx-server-sdk": "~2.6.3"
-  }
-}
