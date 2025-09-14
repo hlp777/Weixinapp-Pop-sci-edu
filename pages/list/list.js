@@ -30,7 +30,7 @@ Page({
             id: 1,
             title: '近地轨道卫星入门',
             description: '了解LEO卫星的轨道、应用与发展趋势。',
-            image: 'https://images.unsplash.com/photo-1581092334631-1cd828e3c6d5?q=80&w=1200&auto=format&fit=crop',
+            image: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?q=80&w=1200&auto=format&fit=crop',
             clickCount: 1234,
             date: '2025-05-20'
           },
@@ -80,7 +80,7 @@ Page({
             id: 6,
             title: '工业机器人技术',
             description: '六轴机械臂的工作原理与应用场景。',
-            image: 'https://images.unsplash.com/photo-1581092334631-1cd828e3c6d5?q=80&w=1200&auto=format&fit=crop',
+            image: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=1200&auto=format&fit=crop',
             clickCount: 1123,
             date: '2025-05-25'
           },
@@ -88,7 +88,7 @@ Page({
             id: 7,
             title: '齿轮制造工艺',
             description: '精密齿轮加工技术与质量控制。',
-            image: 'https://images.unsplash.com/photo-1581092334631-1cd828e3c6d5?q=80&w=1200&auto=format&fit=crop',
+            image: 'https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?q=80&w=1200&auto=format&fit=crop',
             clickCount: 789,
             date: '2025-06-05'
           }
